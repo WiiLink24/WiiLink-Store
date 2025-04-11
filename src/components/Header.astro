@@ -21,7 +21,7 @@ const { isMain } = Astro.props;
 
     <button
       id="menu-toggle"
-      class="block md:hidden text-gray-800 hover:text-gray-600 focus:outline-none z-10"
+      class={`${isMain && 'invertscroll'} block md:hidden text-gray-800 hover:text-gray-600 focus:outline-none z-10`}
     >
       <Icon name="lucide:menu" class="w-8 h-8" />
     </button>
@@ -32,12 +32,12 @@ const { isMain } = Astro.props;
     >
       <a
         href="/"
-        class={`${isMain && 'invertscroll'} text-lg text-gray-800 w-full px-6 py-3 bg-white/60 rounded-xl md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 hover:px-6 hover:bg-black/5 hover:backdrop-blur-xl active:scale-95 active:bg-black/10 transition-all`}
+        class={`${isMain && 'invertscroll'} text-lg text-gray-800 w-full px-6 py-3 rounded-xl md:px-2 md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 md:hover:px-6 border-0 hover:border-2 border-black active:scale-95 transition-all`}
         >Home</a
       >
       <a
         href="/#products"
-        class={`${isMain && 'invertscroll'} mr-3 text-lg text-gray-800 w-full px-6 py-3 bg-white/60 rounded-xl md:px-0 md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 hover:px-6 hover:bg-black/5 hover:backdrop-blur-xl active:scale-95 active:bg-black/10 transition-all`}
+        class={`${isMain && 'invertscroll'} mr-3 text-lg text-gray-800 w-full px-6 py-3 rounded-xl md:px-2 md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 md:hover:px-6 border-0 hover:border-2 border-black active:scale-95 transition-all`}
         >All Products</a
       >
       <Cart isMainCart={isMain}/>

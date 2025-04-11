@@ -68,6 +68,10 @@ const { title, description, image } = Astro.props;
 </html>
 
 <style is:global>
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
   @font-face {
     font-family: Rubik;
     src: url(/fonts/Rubik.ttf);

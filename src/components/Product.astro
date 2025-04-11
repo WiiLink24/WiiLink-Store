@@ -19,15 +19,15 @@ const { product } = Astro.props;
       })}
     </a>
     <a href={`/product/${product.sys.id}`} class="flex flex-row gap-6 justify-between items-center">
-      <h3 transition:name={`title-${product.sys.id}`}>
+      <h3 transition:name={`title-${product.sys.id}`} class="product-name line-clamp-1">
         {product.fields.productName}
       </h3>
       <span class="border-t border-gray-300 flex-grow"></span>
       <p
       transition:name={`price-${product.sys.id}`}
-      class="!m-2 text-3xl !font-extrabold !text-blue-500"
+      class="!h-full !m-2 text-3xl !font-extrabold !text-blue-500 flex flex-row items-start"
     >
-      ${product.fields.priceUsd}
+      <span>${product.fields.priceUsd}</span>
     </p>
     </a>
     {product.fields.size && product.fields.size.length > 0 && (
@@ -198,6 +198,21 @@ const { product } = Astro.props;
 
     .size-option span:hover {
       background-color: #f0f0f0;
+    }
+
+    .product-name {
+      height: 40px;
+      transition: height 0.3s ease !important;
+    }
+
+    .product:hover .product-name {
+      height: auto;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: height 0.3s ease !important;
     }
 
     /* Hide the size selector by default */
