@@ -1,5 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+const { isMainCart } = Astro.props;
 ---
 
 <div id="cart-popover" class="fixed bottom-0 left-0 md:top-24 md:right-5 md:bottom-auto md:left-auto w-full md:w-[350px] max-h-[500px] bg-white rounded-t-3xl md:rounded-3xl shadow-lg z-[200] overflow-hidden flex flex-col md:hidden">
@@ -28,10 +30,27 @@ import { Icon } from 'astro-icon/components';
 </div>
 
 <button id="cart-toggle" class="hover:scale-105 active:scale-95 text-white w-[50px] h-[50px] cursor-pointer z-[100] hidden md:block relative transition-all">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={`${isMainCart && 'invertscroll'}`}>
     <circle cx="9" cy="21" r="1"></circle>
     <circle cx="20" cy="21" r="1"></circle>
     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
   </svg>
   <span id="cart-count" class="absolute -top-[3px] right-[3px] bg-[#10b44f] text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">0</span>
 </button>
+
+<style>
+    .invertscroll {
+    animation: invertscroll ease-in-out forwards;
+    animation-timeline: scroll();
+    animation-range: 0vh 30vh;
+  }
+
+  @keyframes invertscroll {
+    0% {
+      filter: invert(1);
+    }
+    100% {
+      filter: invert(0);
+    }
+  }
+</style>

@@ -56,7 +56,7 @@ const recommendedProducts = products.items.filter(
 >
   <Header />
   <div
-    class="scrollup top-0 left-0 bg-gradient-container w-full max-w-[1900px] h-[1000px] blur-2xl opacity-60 overflow-hidden absolute"
+    class="scrollup top-0 left-0 bg-gradient-container w-full max-w-[1900px] h-[1000px] blur-2xl opacity-30 overflow-hidden absolute"
     style={`background: linear-gradient(to bottom, rgba(256, 256, 256, 0), rgba(256, 256, 256, 1)), url('${images[0].url}'); background-size: cover; background-position: center;`}
   >
   </div>
@@ -69,7 +69,7 @@ const recommendedProducts = products.items.filter(
       />
       {productName}
     </p>
-    <div class="product flex flex-col md:flex-row items-start gap-6">
+    <div class="product flex flex-col md:flex-row items-start gap-12">
       <span
         class="sticky-container md:w-1/2 flex flex-col-reverse md:flex-row items-start gap-3"
       >
@@ -152,7 +152,7 @@ const recommendedProducts = products.items.filter(
           </button>
           <button
             data-product-id={id}
-            class="stripe-button w-full md:w-auto bg-[#1062b4] !text-white px-6 py-3 w-40 h-13 rounded-2xl text-lg font-medium flex flex-row justify-center items-center gap-3 transition duration-200 hover:bg-[#0a4090]"
+            class="stripe-button w-full bg-[#1062b4] !text-white px-6 py-3 md:w-40 h-13 rounded-2xl text-lg font-medium flex flex-row justify-center items-center gap-3 transition duration-200 hover:bg-[#0a4090]"
           >
             <Icon name="lucide:shopping-cart" /> Buy Now
           </button>
@@ -344,10 +344,12 @@ const recommendedProducts = products.items.filter(
       }
     }
 
-    .sticky-container {
-      position: sticky;
-      top: 150px;
-      align-self: flex-start;
+    @media (min-width: 768px) {
+      .sticky-container {
+        position: sticky;
+        top: 150px;
+        align-self: flex-start;
+      }
     }
   </style>
 </Layout>

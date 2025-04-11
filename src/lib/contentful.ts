@@ -17,9 +17,9 @@ export interface storeFeatured {
   fields: {
     title: EntryFieldTypes.Text;
     description: EntryFieldTypes.Text;
-    price: EntryFieldTypes.Number;
     background: EntryFieldTypes.AssetLink;
     foreground: EntryFieldTypes.AssetLink;
+    productLink: Entry<storeProduct>;
   };
 }
 
@@ -47,8 +47,8 @@ export async function getStoreFeatured() {
   return featured.items.map((item) => ({
     title: item.fields.title,
     description: item.fields.description,
-    price: item.fields.price,
     background: item.fields.background,
     foreground: item.fields.foreground,
+    productLink: item.fields.product,
   }));
 }

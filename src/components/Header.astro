@@ -1,13 +1,17 @@
 ---
 import Cart from "./Cart.astro";
 import { Icon } from "astro-icon/components";
+
+const { isMain } = Astro.props;
 ---
 
-<div class="top-0 left-0 w-full h-16 md:h-36 flex fixed z-10">
+<div class="top-0 left-0 w-full h-18 md:h-36 flex fixed z-10">
+  <div class="showscroll top-0 left-0 w-full h-full bg-gradient-to-b from-[#ffffff] to-[#ffffff00] absolute">
+  </div>
   <div
     class="left-1/2 -translate-x-1/2 px-6 w-full max-w-[1500px] flex flex-row justify-between items-center relative"
   >
-    <a href="/" class="hue-rotate z-10">
+    <a href="/" class={`${isMain && 'invertscroll'} hue-rotate z-10`}>
       <img
         src="/img/logo.png"
         alt="Logo"
@@ -28,15 +32,15 @@ import { Icon } from "astro-icon/components";
     >
       <a
         href="/"
-        class="text-lg text-gray-800 w-full px-6 py-3 bg-white/60 rounded-xl md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 hover:px-6 hover:bg-black/5 hover:backdrop-blur-xl active:scale-95 active:bg-black/10 transition-all"
+        class={`${isMain && 'invertscroll'} text-lg text-gray-800 w-full px-6 py-3 bg-white/60 rounded-xl md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 hover:px-6 hover:bg-black/5 hover:backdrop-blur-xl active:scale-95 active:bg-black/10 transition-all`}
         >Home</a
       >
       <a
         href="/#products"
-        class="mr-3 text-lg text-gray-800 w-full px-6 py-3 bg-white/60 rounded-xl md:px-0 md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 hover:px-6 hover:bg-black/5 hover:backdrop-blur-xl active:scale-95 active:bg-black/10 transition-all"
+        class={`${isMain && 'invertscroll'} mr-3 text-lg text-gray-800 w-full px-6 py-3 bg-white/60 rounded-xl md:px-0 md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 hover:px-6 hover:bg-black/5 hover:backdrop-blur-xl active:scale-95 active:bg-black/10 transition-all`}
         >All Products</a
       >
-      <Cart />
+      <Cart isMainCart={isMain}/>
     </div>
   </div>
 </div>
@@ -306,6 +310,36 @@ import { Icon } from "astro-icon/components";
     }
     100% {
       filter: hue-rotate(360deg);
+    }
+  }
+
+  .showscroll {
+    animation: showscroll ease-in-out forwards;
+    animation-timeline: scroll();
+    animation-range: 0vh 30vh;
+  }
+
+  @keyframes showscroll {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .invertscroll {
+    animation: invertscroll ease-in-out forwards;
+    animation-timeline: scroll();
+    animation-range: 0vh 30vh;
+  }
+
+  @keyframes invertscroll {
+    0% {
+      filter: invert(1);
+    }
+    100% {
+      filter: invert(0);
     }
   }
 
