@@ -1,6 +1,7 @@
 ---
 import { contentfulClient } from "../../lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import type { storeProduct } from "../../lib/contentful";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
@@ -52,7 +53,8 @@ const recommendedProducts = products.items.filter(
 
 <Layout
   title={`${productName} - WiiLink Store`}
-  description="Welcome to the WiiLink Store! Buy your favorite products here."
+  description={`Get your hands on the ${productName} at the WiiLink Store! \n \n \n $${priceUsd} · ${classificationChips.map((chip) => `#${chip}`).join(" ")} · ${sizes && sizes.length > 0 ? `Sizes: ${sizes.join(", ")}` : ""} \n \n \n ${description.split(" ").slice(0, 40).join(" ")}${description.split(" ").length > 40 ? "..." : ""}`}
+  image={images[0].url}
 >
   <Header />
   <div

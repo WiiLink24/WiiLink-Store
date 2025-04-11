@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 const { product } = Astro.props;
 ---
 
-<span class="product mt-24">
+<span class="product mt-24 h-[500px]">
     <a href={`/product/${product.sys.id}`} class="image-stack mb-24 flex flex-row justify-center">
       {product.fields.images.map((image, index) => {
         const randomRotation = Math.random() * 10 - 5;
@@ -209,7 +209,7 @@ const { product } = Astro.props;
       height: auto;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       overflow: hidden;
       text-overflow: ellipsis;
       transition: height 0.3s ease !important;
