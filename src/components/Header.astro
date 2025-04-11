@@ -21,7 +21,7 @@ const { isMain } = Astro.props;
 
     <button
       id="menu-toggle"
-      class={`${isMain && 'invertscroll'} block md:hidden text-gray-800 hover:text-gray-600 focus:outline-none z-10`}
+      class={`${isMain && 'invertscroll'} block md:hidden focus:outline-none z-10`}
     >
       <Icon name="lucide:menu" class="w-8 h-8" />
     </button>
@@ -32,14 +32,16 @@ const { isMain } = Astro.props;
     >
       <a
         href="/"
-        class={`${isMain && 'invertscroll'} text-lg text-gray-800 w-full px-6 py-3 rounded-xl md:px-2 md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 md:hover:px-6 border-0 hover:border-2 border-black active:scale-95 transition-all`}
-        >Home</a
+        class={`${isMain && 'invertscroll'} mt-6 md:mt-0 text-lg w-full px-6 py-3 rounded-xl md:px-2 md:py-2 bg-black/10 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 md:hover:px-6 border-0 hover:border-2 border-black active:scale-95 transition-all flex flex-row items-center`}
       >
+        <Icon name="lucide:home" size="23" class="inline-block mr-2" /> Home
+      </a>
       <a
         href="/#products"
-        class={`${isMain && 'invertscroll'} text-lg text-gray-800 w-full px-6 py-3 rounded-xl md:px-2 md:py-2 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 md:hover:px-6 border-0 hover:border-2 border-black active:scale-95 transition-all`}
-        >All Products</a
+        class={`${isMain && 'invertscroll'} text-lg w-full px-6 py-3 rounded-xl md:px-2 md:py-2 bg-black/10 md:bg-transparent md:rounded-xl md:w-auto hover:scale-105 md:hover:px-6 border-0 hover:border-2 border-black active:scale-95 transition-all flex flex-row items-center`}
       >
+        <Icon name="lucide:box" size="23" class="inline-block mr-2" /> All Products
+      </a>
       <Cart isMainCart={isMain}/>
     </div>
   </div>
@@ -51,7 +53,17 @@ const { isMain } = Astro.props;
     const menu = document.getElementById("menu");
 
     menuToggle.addEventListener("click", () => {
-      menu.classList.toggle("hidden");
+      if (menu.classList.contains("hidden")) {
+        menu.classList.remove("hidden");
+        menu.classList.add("fade-in");
+        menu.classList.remove("fade-out");
+      } else {
+        menu.classList.add("fade-out");
+        menu.classList.remove("fade-in");
+        setTimeout(() => {
+          menu.classList.add("hidden");
+        }, 300); // Match the animation duration
+      }
     });
 
     // Cart functionality
@@ -364,6 +376,32 @@ const { isMain } = Astro.props;
 
     #menu-toggle {
       display: none;
+    }
+  }
+
+  .fade-in {
+    animation: fade-in 0.3s ease-in-out forwards;
+  }
+
+  .fade-out {
+    animation: fade-out 0.3s ease-in-out forwards;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
     }
   }
 </style>
