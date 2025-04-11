@@ -12,6 +12,17 @@ export interface storeProduct {
   };
 }
 
+export interface storeFeatured {
+  contentTypeId: "storeFeatured";
+  fields: {
+    title: EntryFieldTypes.Text;
+    description: EntryFieldTypes.Text;
+    price: EntryFieldTypes.Number;
+    background: EntryFieldTypes.AssetLink;
+    foreground: EntryFieldTypes.AssetLink;
+  };
+}
+
 export const contentfulClient = contentful.createClient({
   space: import.meta.env.CONTENTFUL_SPACE_ID,
   accessToken: import.meta.env.DEV
@@ -28,5 +39,16 @@ export async function getStoreProducts() {
     classificationChips: product.fields.classificationChips,
     images: product.fields.images,
     priceUsd: product.fields.priceUsd,
+  }));
+}
+
+export async function getStoreFeatured() {
+  const featured = await contentfulClient.getEntries({ content_type: 'storeFeatured' });
+  return featured.items.map((item) => ({
+    title: item.fields.title,
+    description: item.fields.description,
+    price: item.fields.price,
+    background: item.fields.background,
+    foreground: item.fields.foreground,
   }));
 }
