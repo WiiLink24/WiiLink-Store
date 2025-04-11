@@ -36,8 +36,8 @@ const { product } = Astro.props;
         class="size-selector hidden-on-hover relative z-0"
       >
         <div class="size-options">
-          {product.fields.size.map((size, index) => (
-            <label class="size-option">
+          {product.fields.size.slice(0, 4).map((size, index) => (
+            <label class="size-option" key={index}>
               <input
                 type="radio"
                 name={`size-${product.sys.id}`}
@@ -48,6 +48,14 @@ const { product } = Astro.props;
               <span>{size}</span>
             </label>
           ))}
+          {product.fields.size.length > 4 && (
+            <a
+              href={`/product/${product.sys.id}`}
+              class="size-option more-sizes"
+            >
+              <span>+{product.fields.size.length - 4}</span>
+            </a>
+          )}
         </div>
       </div>
     )}
