@@ -1,0 +1,1020 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content="WiiLink" />
+<meta name="description" content={description} />
+<meta content={description} property="og:description" />
+<meta content={image} property="og:image" />
+<meta
+  name="keywords"
+  content="food channel, wii homebrew, homebrew, wii hacking, wii modding, riitag, riiTag, riiconnect, riiconnect24, rc24, wiiconnect, wiiconnect24, WC24, wii,wiilink24,riiconnect24,wii online,online,wii japan,japan,channel,japanese channel wii,wii japanese"
+/>
+<meta name="robots" content="index, follow" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="12 days" />
+<meta name="author" content="The WiiLink Team" />
+
+<link rel="manifest" href="/img/site.webmanifest" />
+<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5" />
+<link rel="shortcut icon" href="/img/favicon.png" />
+<meta name="msapplication-TileColor" content="#ffffff" />
+<meta name="msapplication-config" content="/img/browserconfig.xml" />
+<meta name="theme-color" content="#ffffff" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={image} />
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="darkreader-lock" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <ClientRouter />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @font-face {
+    font-family: Rubik;
+    src: url(/fonts/Rubik.ttf);
+  }
+
+  @font-face {
+    font-family: gilroy;
+    src: url(/fonts/Gilroy.otf);
+  }
+
+  @font-face {
+    font-family: inter;
+    src: url(/fonts/sfpro.otf);
+  }
+
+  @font-face {
+    font-family: "FontAwesome";
+    src: url("/fonts/fontawesome.ttf");
+  }
+  .no-animation,
+  .no-animation *,
+  .no-animation *:before,
+  .no-animation *:after {
+    animation-play-state: paused !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+  }
+
+  .no-animation #square2 {
+    background-color: var(--bg-color) !important;
+  }
+
+  .no-animation #links .dropdown,
+  .no-animation marquee,
+  .no-animation .bar-holder {
+    display: none;
+  }
+
+  .no-animation span,
+  .no-animation .release-name {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  .no-animation .footer-holder,
+  .no-animation .element,
+  .no-animation .left,
+  .no-animation .download-button {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+  }
+
+  .no-animation .release-name span {
+    transform: translate(-33px, -26px) !important;
+  }
+
+  .no-animation .follow span,
+  .no-animation .social span {
+    transform: translate(0, -50%) !important;
+  }
+
+  .no-animation #footer {
+    transform: translate(-50%, 0) !important;
+  }
+
+  h1,
+  h2,
+  h4,
+  h5,
+  h6,
+  p,
+  label,
+  button,
+  li,
+  a,
+  div {
+    color: var(--color) !important;
+  }
+
+  .dropdown-item:hover {
+    background-color: var(--bg-select) !important;
+  }
+
+  html {
+    --color: #000000;
+    --bg-color: #ffffff;
+    --bg-color-hero: #ffffffde;
+    --bg-color-light: #ffffff;
+    --bg-color-secondary: #f8f9fa;
+    --bg-color-tertiary: #f1f3f5;
+    --bg-color-absolute: #ffffff;
+    --border-color: #00000020;
+    --shadow-color: #00000020;
+    --bg-select: #eaeaea;
+    --bg-opaque-1: #00000010;
+    --bg-opaque-2: #00000020;
+    --opacity: 0.6;
+    --invert: 1;
+  }
+
+  html.dark {
+    --color: #ffffff;
+    --bg-color: #161515;
+    --bg-color-hero: #161515ee;
+    --bg-color-light: #202020;
+    --bg-color-secondary: #1a1a1a;
+    --bg-color-tertiary: #1e1e1e;
+    --bg-color-absolute: #000000;
+    --border-color: #ffffff20;
+    --shadow-color: #ffffff05;
+    --bg-select: #0a0a0a30;
+    --bg-opaque-1: #ffffff10;
+    --bg-opaque-2: #ffffff20;
+    --opacity: 0.3;
+    --invert: 0;
+  }
+
+  html.dark .btn-close,
+  html.dark .stripe-logo,
+  html.dark .svcicons {
+    filter: invert(1);
+  }
+
+  html.dark #grad {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(250, 250, 250, 0.1) 100%
+    );
+  }
+  html.dark .accordion-button::after {
+    color: white;
+    background-color: #00000000;
+    filter: invert(1);
+  }
+  html.dark .logo,
+  html.dark .invert {
+    filter: invert(0) !important;
+  }
+
+  :root {
+    --accent: 136, 58, 234;
+    --accent-light: 224, 204, 250;
+    --accent-dark: 49, 10, 101;
+    --accent-gradient: linear-gradient(
+      45deg,
+      rgb(var(--accent)),
+      rgb(var(--accent-light)) 30%,
+      white 60%
+    );
+  }
+  html {
+    scroll-behavior: smooth;
+    font-family: systemui, sans-serif;
+    background-color: var(--bg-color);
+    background-size: 224px;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background-size: 100% 600px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: rgb(var(--gray-dark));
+    background-color: var(--bg-color);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  main {
+    width: 720px;
+    max-width: calc(100% - 2em);
+    margin: auto;
+    padding: 3em 1em;
+  }
+  ins,
+  .autors-widget {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    width: 100%;
+    max-width: 1500px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0px 0px 20px var(--shadow-color);
+    border-radius: 12px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  toolbar {
+    display: none !important;
+  }
+  .color {
+    background: url("/img/header_bg.webp");
+    background: AccentColor;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: brightness(150%);
+  }
+
+  .service {
+    background-color: var(--bg-color-secondary);
+    transition: 0.3s;
+  }
+
+  .service:hover {
+    transform: scale(105%);
+    transition: 0.3s;
+  }
+
+  .service:active {
+    transform: scale(1.03);
+    transition: 0.2s;
+  }
+
+  .header {
+    font-family: system-ui;
+    font-weight: 800;
+  }
+
+  .tooltip-inner {
+    color: white !important;
+  }
+
+  .member:hover {
+    transform: scale(105%);
+    transition: 0.3s;
+  }
+
+  .emoji {
+    width: 24px;
+  }
+
+  body > .skiptranslate {
+    height: 0px;
+    overflow: hidden;
+    display: none;
+  }
+
+  .dropdown-item:hover .dropdown-text {
+    transform: translate(5px, 0);
+    transition: 0.2s;
+  }
+
+  h1 {
+    --bg-text: #121212;
+    font-family: systemui;
+    color: var(--bg-text);
+  }
+
+  code {
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
+
+  code {
+    padding: 4px 6px;
+    background-color: rgba(97, 97, 97, 0.148);
+    color: var(--color);
+    border-radius: 12px;
+  }
+
+  .notice {
+    width: auto;
+    height: auto;
+    padding: 18px;
+    margin-bottom: 0px;
+    border-radius: 12px;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    position: relative;
+  }
+  .notice a {
+    color: white !important;
+  }
+  .warn {
+    background-color: rgba(182, 197, 14, 0.6);
+    color: white;
+  }
+  .warn a {
+    color: white;
+  }
+  .warn::before {
+    margin-left: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "FontAwesome";
+    font-weight: 900;
+    content: "\f06a";
+  }
+  .danger {
+    background-color: rgba(197, 14, 14, 0.6);
+    color: white;
+  }
+  .danger::before {
+    margin-left: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "FontAwesome";
+    font-weight: 900;
+    content: "\f071";
+  }
+  .success {
+    background-color: rgba(10, 190, 40, 0.6);
+    color: white;
+  }
+  .success::before {
+    margin-left: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "FontAwesome";
+    font-weight: 900;
+    content: "\f058";
+  }
+  .info {
+    background-color: rgba(14, 124, 197, 0.6);
+    color: white;
+  }
+  .info code {
+    background-color: rgba(14, 124, 197, 0.6);
+    color: white;
+    border-radius: 12px;
+  }
+  .warn code {
+    background-color: rgba(182, 197, 14, 0.6);
+    color: white;
+    border-radius: 12px;
+  }
+  .danger code {
+    background-color: rgba(197, 14, 14, 0.6);
+    color: white;
+    border-radius: 12px;
+  }
+  .success code {
+    background-color: rgba(10, 190, 40, 0.6);
+    color: white;
+    border-radius: 12px;
+  }
+  .info::before {
+    margin-left: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "FontAwesome";
+    font-weight: 900;
+    content: "\f059";
+  }
+  .generic {
+    background-color: rgba(97, 97, 97, 0.382);
+  }
+  .generic::before {
+    margin-left: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "FontAwesome";
+    font-weight: 900;
+    content: "\f0c6";
+  }
+
+  .fullwidth {
+    left: 0;
+    width: 100%;
+  }
+
+  .center {
+    text-align: center;
+    padding: 10px;
+  }
+
+  iframe #skiptranslate {
+    display: none;
+  }
+
+  img[alt="img"] {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  img[alt="img2"] {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  img[alt="imgcaroussel"] {
+    width: 49%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-align: left;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+  }
+  h1 {
+    font-size: 3.052em;
+  }
+  h2 {
+    font-size: 2.441em;
+    font-family: inter;
+  }
+  h3 {
+    font-size: 1.953em;
+    font-family: inter;
+  }
+  .guidecontent > h2 {
+    font-size: 35px;
+    font-family: Gilroy;
+  }
+
+  .guidecontent > h3 {
+    font-size: 25px;
+    font-family: Gilroy;
+  }
+
+  .guidecontent > h4 {
+    font-size: 20px;
+    font-family:
+      inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+  }
+
+  .guidecontent > h5 {
+    font-size: 20px;
+    font-family:
+      inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+  }
+
+  .postexpand > h2 {
+    color: black;
+    font-size: 35px;
+    font-family: Gilroy;
+  }
+
+  .postexpand > h3 {
+    font-size: 25px;
+    font-family: Gilroy;
+  }
+
+  .postexpand > h4 {
+    color: black;
+    font-size: 20px;
+    font-family:
+      inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+  }
+
+  .postexpand > h5 {
+    color: black;
+    font-size: 20px;
+    font-family:
+      inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+  }
+
+  h5 {
+    font-size: 1.25em;
+  }
+  ol,
+  ul {
+    margin-left: 20px;
+    font-family:
+      inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+    color: black;
+  }
+  strong,
+  b {
+    font-weight: 700;
+  }
+  p {
+    font-family:
+      inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+    text-align: left;
+    color: black;
+    margin-bottom: 1em;
+  }
+  .prose p {
+    margin-bottom: 2em;
+  }
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+  input {
+    font-size: 16px;
+  }
+  table {
+    width: 100%;
+  }
+  pre {
+    padding: 1.5em;
+    border-radius: 12px;
+  }
+  pre > code {
+    all: unset;
+  }
+  blockquote {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.096);
+    padding: 15px;
+    padding-bottom: 3px;
+    margin: 5px;
+    border-radius: 12px;
+    position: relative;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid rgb(var(--gray-light));
+  }
+
+  @media only screen and (max-width: 1150px) {
+    .vr {
+      opacity: 0;
+      display: none;
+    }
+
+    .download {
+      display: none;
+    }
+  }
+
+  .bomb {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-bottom: -3px;
+    background-color: currentColor;
+    --svg: url("/icons/bomb.svg");
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  .circle-check {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-bottom: -3px;
+    background-color: currentColor;
+    --svg: url("/icons/circle-check.svg");
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  .circle-help {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-bottom: -3px;
+    background-color: currentColor;
+    --svg: url("/icons/circle-help.svg");
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  .hard-hat {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-bottom: -3px;
+    background-color: currentColor;
+    --svg: url("/icons/hard-hat.svg");
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  .git-branch {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -3px;
+   background-color: currentColor;
+   --svg: url('/icons/git-branch.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .calendar-days {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -3px;
+   background-color: currentColor;
+   --svg: url('/icons/calendar-days.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .star {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -3px;
+   background-color: currentColor;
+   --svg: url('/icons/star.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .heart {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -3px;
+   background-color: currentColor;
+   --svg: url('/icons/heart.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .rocket {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -3px;
+   background-color: currentColor;
+   --svg: url('/icons/rocket.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .eye {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -3px;
+   background-color: currentColor;
+   --svg: url('/icons/eye.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .github {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -5px;
+   background-color: currentColor;
+   --svg: url('/icons/github.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .linux {
+   display: inline-block;
+   width: 20px;
+   height: 20px;
+   margin-bottom: -2px;
+   background-color: currentColor;
+   --svg: url('/icons/linux.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .microsoft {
+   display: inline-block;
+   width: 20px;
+   height: 20px;
+   margin-bottom: -2px;
+   background-color: currentColor;
+   --svg: url('/icons/microsoft.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .apple {
+   display: inline-block;
+   width: 20px;
+   height: 20px;
+   margin-bottom: -2px;
+   background-color: currentColor;
+   --svg: url('/icons/apple.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .download {
+   display: inline-block;
+   width: 20px;
+   height: 20px;
+   margin-bottom: -2px;
+   background-color: currentColor;
+   --svg: url('/icons/download.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .clock {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -5px;
+   background-color: currentColor;
+   --svg: url('/icons/clock.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .sd-card {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   margin-bottom: -5px;
+   background-color: currentColor;
+   --svg: url('/icons/sd-card.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .globe {
+   display: inline-block;
+   width: 22px;
+   height: 22px;
+   margin-bottom: -5px;
+   background-color: currentColor;
+   --svg: url('/icons/globe.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .qr-code {
+   display: inline-block;
+   width: 22px;
+   height: 22px;
+   margin-bottom: -5px;
+   background-color: currentColor;
+   --svg: url('/icons/qr-code.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .monitor {
+   display: inline-block;
+   width: 22px;
+   height: 22px;
+   margin-bottom: -5px;
+   background-color: currentColor;
+   --svg: url('/icons/monitor.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .android {
+   display: inline-block;
+   width: 22px;
+   height: 22px;
+   margin-bottom: -5px;
+   background-color: currentColor;
+   --svg: url('/icons/android.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+
+  .user {
+   display: inline-block;
+   width: 22px;
+   height: 22px;
+   margin-bottom: -5px;
+   background-color: currentColor;
+   --svg: url('/icons/user.svg');
+   -webkit-mask-image: var(--svg);
+   mask-image: var(--svg);
+   -webkit-mask-repeat: no-repeat;
+   mask-repeat: no-repeat;
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+  }
+</style>

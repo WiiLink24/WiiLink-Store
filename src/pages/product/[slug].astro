@@ -1,0 +1,353 @@
+---
+import { contentfulClient } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { storeProduct } from "../../lib/contentful";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Product from "../../components/Product.astro";
+import { Icon } from "astro-icon/components";
+
+export async function getStaticPaths() {
+  const products = await contentfulClient.getEntries<storeProduct>({
+    content_type: "storeProduct",
+  });
+
+  return products.items.map((product) => ({
+    params: { slug: product.sys.id },
+    props: {
+      id: product.sys.id,
+      productName: product.fields.productName,
+      description: documentToHtmlString(product.fields.description),
+      images: product.fields.images.map((image) => ({
+        url: image.fields.file.url,
+        title: image.fields.title,
+      })),
+      priceUsd: product.fields.priceUsd,
+      sizes: product.fields.size || [],
+      classificationChips: product.fields.classificationChips || [],
+    },
+  }));
+}
+
+const {
+  id,
+  productName,
+  description,
+  images,
+  priceUsd,
+  sizes,
+  classificationChips,
+} = Astro.props;
+
+// Get the first 4 products for the "You may also like" section
+const products = await contentfulClient.getEntries<storeProduct>({
+  content_type: "storeProduct",
+  limit: 4,
+});
+const recommendedProducts = products.items.filter(
+  (product) => product.sys.id !== id
+);
+---
+
+<Layout
+  title={`${productName} - WiiLink Store`}
+  description="Welcome to the WiiLink Store! Buy your favorite products here."
+>
+  <Header />
+  <div
+    class="scrollup top-0 left-0 bg-gradient-container w-full max-w-[1900px] h-[1000px] blur-2xl opacity-60 overflow-hidden absolute"
+    style={`background: linear-gradient(to bottom, rgba(256, 256, 256, 0), rgba(256, 256, 256, 1)), url('${images[0].url}'); background-size: cover; background-position: center;`}
+  >
+  </div>
+  <div
+    class="!bg-white/0 mt-20 md:mt-40 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6 relative"
+  >
+    <p class="text-lg opacity-60 flex-row items-center gap-3 hidden md:flex">
+      WiiLink Store <Icon name="lucide:chevron-right" /> Product <Icon
+        name="lucide:chevron-right"
+      />
+      {productName}
+    </p>
+    <div class="product flex flex-col md:flex-row items-start gap-6">
+      <span
+        class="sticky-container md:w-1/2 flex flex-col-reverse md:flex-row items-start gap-3"
+      >
+        <div
+          class="w-[100px] h-full flex flex-row md:flex-col items-center gap-3"
+        >
+          {
+            images.map((image, index) => (
+              <img
+                transition:name={`image-${index}-${id}`}
+                src={image.url}
+                alt={`${productName} - Image ${index + 1}`}
+                class={`thumbnail w-full aspect-square object-cover rounded-xl cursor-pointer shadow-xl ${
+                  index === 0 ? "selected-thumbnail" : ""
+                }`}
+                data-index={index}
+                onclick="updateMainImage(event, this)"
+              />
+            ))
+          }
+        </div>
+        <div
+          class="main-image-container md:max-w-[calc(100% - 100px)] relative overflow-hidden"
+        >
+          <img
+            id="main-img"
+            src={images[0].url}
+            alt={productName}
+            class="main-image aspect-[9/13] object-cover shadow-xl"
+            style="width: 100%; border-radius: 16px;"
+          />
+          <div id="zoom-container" class="zoom-container hidden"></div>
+        </div>
+      </span>
+      <span class="product md:w-1/2">
+        <h3
+          transition:name={`title-${id}`}
+          class="!text-5xl !font-[Rubik] !font-bold"
+        >
+          {productName}
+        </h3>
+        <p
+          transition:name={`price-${id}`}
+          class="text-3xl !font-extrabold !text-blue-500"
+        >
+          ${priceUsd}
+        </p>
+
+        {
+          sizes && sizes.length > 0 && (
+            <div transition:name={`size-${id}`} class="size-selector">
+              <div class="size-options">
+                {sizes.map((size, index) => (
+                  <label class="size-option">
+                    <input
+                      type="radio"
+                      name={`size-${id}`}
+                      value={size}
+                      class="size-radio"
+                      checked={index === 0}
+                    />
+                    <span>{size}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )
+        }
+
+        <span class="flex flex-col md:flex-row items-center gap-3">
+          <button
+            transition:name={`cart-${id}`}
+            class="add-to-cart-button flex-grow w-full md:w-auto bg-[#10b44f] !text-white px-6 py-3 rounded-2xl text-lg font-medium flex flex-row justify-center items-center gap-3 transition duration-200 hover:bg-[#0a9040]"
+            data-product-id={id}
+            data-product-name={productName}
+            data-product-price={priceUsd}
+            data-product-image={images[0].url}
+          >
+            <Icon name="lucide:shopping-bag" /> Add to Cart
+          </button>
+          <button
+            data-product-id={id}
+            class="stripe-button w-full md:w-auto bg-[#1062b4] !text-white px-6 py-3 w-40 h-13 rounded-2xl text-lg font-medium flex flex-row justify-center items-center gap-3 transition duration-200 hover:bg-[#0a4090]"
+          >
+            <Icon name="lucide:shopping-cart" /> Buy Now
+          </button>
+        </span>
+
+        <h3 class="!text-2xl !font-bold !mt-13">Product description</h3>
+        <p class="description" set:html={description} />
+
+        <span class="mt-8 flex flex-row items-center gap-3">
+          {
+            classificationChips.map((chip) => (
+              <span class="bg-black/20 text-white rounded-full px-4 py-1 text-sm font-medium">
+                {chip}
+              </span>
+            ))
+          }
+        </span>
+      </span>
+    </div>
+
+    <h2 class="!mt-6 !mb-0 translate-y-18">You may also like</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+      {
+        recommendedProducts.map((product) => (
+          <Product key={product.sys.id} product={product} class="w-full" />
+        ))
+      }
+    </div>
+  </div>
+
+  <Footer />
+
+  <script is:inline>
+    document.addEventListener("astro:page-load", () => {
+      const mainImageContainer = document.querySelector(
+        ".main-image-container"
+      );
+      const mainImage = document.getElementById("main-img");
+      const zoomContainer = document.getElementById("zoom-container");
+
+      mainImageContainer.addEventListener("mousemove", (e) => {
+        const rect = mainImageContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Show the zoom container
+        zoomContainer.classList.remove("hidden");
+
+        // Set the position of the zoom container
+        zoomContainer.style.left = `${x - zoomContainer.offsetWidth / 2}px`;
+        zoomContainer.style.top = `${y - zoomContainer.offsetHeight / 2}px`;
+
+        // Set the background image and position for the zoom effect
+        zoomContainer.style.backgroundImage = `url(${mainImage.src})`;
+        const bgX = (x / rect.width) * 100;
+        const bgY = (y / rect.height) * 100;
+        zoomContainer.style.backgroundPosition = `${bgX}% ${bgY}%`;
+      });
+
+      mainImageContainer.addEventListener("mouseleave", () => {
+        // Hide the zoom container when the mouse leaves
+        zoomContainer.classList.add("hidden");
+      });
+    });
+
+    function updateMainImage(event, thumbnail) {
+      // Get the main image element
+      const mainImage = document.getElementById("main-img");
+
+      // Update the main image's src with the clicked thumbnail's src
+      mainImage.src = thumbnail.src;
+
+      // Remove the blue border from all thumbnails
+      document.querySelectorAll(".thumbnail").forEach((thumb) => {
+        thumb.classList.remove("selected-thumbnail");
+      });
+
+      // Add the blue border to the clicked thumbnail
+      thumbnail.classList.add("selected-thumbnail");
+    }
+  </script>
+
+  <style>
+    .thumbnail {
+      border: 2px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .thumbnail:hover {
+      border-color: #ccc; /* Optional hover effect */
+    }
+
+    .selected-thumbnail {
+      border-color: #007bff; /* Blue border for the selected thumbnail */
+    }
+
+    .size-options {
+      width: 100%;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .size-option {
+      margin-bottom: 8px;
+      flex: 1;
+      position: relative;
+      display: inline-block;
+    }
+
+    .size-radio {
+      display: none; /* Hide the default radio button */
+    }
+
+    .size-option span {
+      width: 100%;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: white;
+      text-align: center;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-option:nth-child(1) span {
+      border-radius: 16px 4px 4px 16px;
+    }
+
+    .size-option:last-child span {
+      border-radius: 4px 16px 16px 4px;
+    }
+
+    .size-radio:checked + span {
+      background-color: #635bff !important;
+      color: white;
+      border-color: #635bff;
+    }
+
+    .size-option span:hover {
+      background-color: #f0f0f0;
+    }
+
+    .main-image-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .main-image {
+      transition: transform 0.2s ease;
+    }
+
+    .zoom-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px; /* Size of the magnifier */
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      pointer-events: none;
+      border: 2px solid #007bff;
+      background-repeat: no-repeat;
+      background-size: 500%; /* Zoom level */
+      background-position: center;
+      z-index: 10;
+    }
+
+    .main-image-container:hover .main-image {
+      transform: scale(1.1); /* Slight zoom on hover */
+    }
+
+    .scrollup {
+      animation: scrollup ease-in-out forwards;
+      animation-timeline: scroll();
+      animation-range: 0vh 100vh;
+    }
+
+    @keyframes scrollup {
+      0% {
+        transform: translateY(0px);
+      }
+      100% {
+        transform: translateY(300px) scale(1.06); /* Adjust the third image */
+      }
+    }
+
+    .sticky-container {
+      position: sticky;
+      top: 150px;
+      align-self: flex-start;
+    }
+  </style>
+</Layout>

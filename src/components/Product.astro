@@ -1,0 +1,235 @@
+---
+import { Icon } from "astro-icon/components";
+const { product } = Astro.props;
+---
+
+<span class="product mt-24">
+    <a href={`/product/${product.sys.id}`} class="image-stack mb-24 flex flex-row justify-center">
+      {product.fields.images.map((image, index) => {
+        const randomRotation = Math.random() * 10 - 5;
+        return (
+          <img
+            transition:name={`image-${index}-${product.sys.id}`}
+            src={image.fields.file.url}
+            alt={`${product.fields.productName} - Image ${index + 1}`}
+            class="stacked-image aspect-[9/13] object-cover"
+            style={`z-index: ${product.fields.images.length - index}; transform: rotate(${randomRotation}deg);`}
+          />
+        );
+      })}
+    </a>
+    <a href={`/product/${product.sys.id}`} class="flex flex-row gap-6 justify-between items-center">
+      <h3 transition:name={`title-${product.sys.id}`}>
+        {product.fields.productName}
+      </h3>
+      <span class="border-t border-gray-300 flex-grow"></span>
+      <p
+      transition:name={`price-${product.sys.id}`}
+      class="!m-2 text-3xl !font-extrabold !text-blue-500"
+    >
+      ${product.fields.priceUsd}
+    </p>
+    </a>
+    {product.fields.size && product.fields.size.length > 0 && (
+      <div
+        transition:name={`size-${product.sys.id}`}
+        class="size-selector hidden-on-hover relative z-0"
+      >
+        <div class="size-options">
+          {product.fields.size.map((size, index) => (
+            <label class="size-option">
+              <input
+                type="radio"
+                name={`size-${product.sys.id}`}
+                value={size}
+                class="size-radio"
+                checked={index === 0}
+              />
+              <span>{size}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="flex flex-row justify-between items-center rounded-2xl bg-white relative z-10">
+      <button
+        transition:name={`cart-${product.sys.id}`}
+        class="px-6 py-2 w-full rounded-2xl border-2 border-blue-400 hover:bg-blue-400 hover:text-white cursor-pointer flex flex-row justify-center items-center gap-3 transition-all add-to-cart-button"
+        data-product-id={product.sys.id}
+        data-product-name={product.fields.productName}
+        data-product-price={product.fields.priceUsd}
+        data-product-image={product.fields.images[0]?.fields.file.url}
+      >
+        <Icon name="lucide:shopping-bag" class="inline-block mr-2" />
+        Add to Cart
+      </button>
+    </div>
+  </span>
+
+ <style>
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .add-to-cart-button.added {
+      background-color: #462997;
+      color: white !important;
+      border-color: #462997;
+    }
+
+    .stripe-button {
+      flex: 1;
+      background-color: #635bff;
+      color: white;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .stripe-button:hover {
+      background-color: #524dff;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #635bff;
+      font-size: 1.2rem;
+    }
+
+    .empty-cart {
+      text-align: center;
+      color: #888;
+      margin: 20px 0;
+    }
+
+    .image-stack {
+      position: relative;
+      width: 100%;
+      height: 300px; /* Adjust based on your design */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px; /* Add perspective for a 3D effect */
+    }
+
+    .stacked-image {
+      position: absolute;
+      width: 80%; /* Adjust the size of the images */
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .image-stack:hover .stacked-image {
+      transform: translateY(-10px) scale(1.05) !important; /* Slightly lift all images on hover */
+    }
+
+    .image-stack:hover .stacked-image:nth-child(1) {
+      transform: translateY(-20px) rotate(-2deg) scale(1.1) !important; /* Lift the first image more */
+    }
+
+    .image-stack:hover .stacked-image:nth-child(2) {
+      transform: translateY(-15px) rotate(-7deg) scale(1.08) !important; /* Adjust the second image */
+    }
+
+    .image-stack:hover .stacked-image:nth-child(3) {
+      transform: translateY(-10px) rotate(8deg) scale(1.06) !important; /* Adjust the third image */
+    }
+
+    .size-options {
+      width: 100%;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .size-option {
+      margin-bottom: 8px;
+      flex: 1;
+      position: relative;
+      display: inline-block;
+    }
+
+    .size-radio {
+      display: none; /* Hide the default radio button */
+    }
+
+    .size-option span {
+      width: 100%;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: white;
+      text-align: center;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-option:nth-child(1) span {
+      border-radius: 16px 4px 4px 16px;
+    }
+
+    .size-option:last-child span {
+      border-radius: 4px 16px 16px 4px;
+    }
+
+    .size-radio:checked + span {
+      background-color: #635bff !important;
+      color: white;
+      border-color: #635bff;
+    }
+
+    .size-option span:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Hide the size selector by default */
+    .hidden-on-hover {
+      height: 0px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: 0.3s;
+    }
+
+    /* Show the size selector when hovering over the product */
+    .product:hover .hidden-on-hover {
+      height: 60px;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .products-container {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+      }
+
+      .hidden-on-hover {
+        height: 0px !important;
+        opacity: 0 !important;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: 0.3s;
+      }
+    }
+  </style>
+</Layout>

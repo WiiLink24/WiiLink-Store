@@ -1,0 +1,377 @@
+---
+import { Icon } from "astro-icon/components";
+
+let { display = "", top = "", flex = "", maxwidth = "" } = Astro.props;
+---
+
+<div class="copyright" style={top}>
+  <div class="holder" style={maxwidth}>
+    <div class="footer-holder" style={flex}>
+      <div class="column" style="width:20%; min-width:300px; gap:0;">
+        <img
+          alt="WiiLink Logo"
+          loading="lazy"
+          class="footer-logo logo invert brightness-0"
+          src="/img/logo.png"
+          width="250px"
+        />
+        <p
+          style="margin:0; margin-top:12px; color:#ffffff80; !important; opacity:0.7; margin-right:8px; text-align:left;" class="flex flex-row items-center gap-1">
+          <Icon
+            name="globe"
+            style="margin-right:5px; margin-bottom:5px;"
+          />
+          Site by
+          <a
+            href="https://github.com/humanoidear"
+            data-bs-toggle="tooltip"
+            data-bs-placement="right"
+            data-bs-title="creator"
+            aria-label="Alex's GitHub"
+            style="text-decoration: none;"
+            class="flex flex-row items-center gap-1"
+            ><u>Alex</u></a
+          >
+        </p>
+        <p
+          style="margin:0; margin-top:8px; color:#ffffff80; !important; opacity:0.7; margin-right:8px; text-align:left;" class="flex flex-row items-center gap-1">
+          <Icon
+            name="lucide:mail-open"
+            style="margin-right:5px; margin-bottom:5px;"
+          />
+          <a href="mailto:support@wiilink.ca" aria-label="Contact Link"
+            ><u>support@wiilink.ca</u></a
+          >
+        </p>
+        <p
+          style="margin:0; margin-top:8px; color:#ffffff80; !important; opacity:0.7; margin-right:8px; text-align:left;">
+          <a
+            href="https://wiilink.ca"
+            aria-label="WiiLink WFC Link"
+            style="margin-right:5px;"
+            >WiiLink Main Site</a
+          >
+        </p>
+      </div>
+      <div class="tables-holder columns" style={flex}>
+        <div class="column">
+          <h4><b>Site Pages</b></h4>
+          <hr
+            style="width: 60px; border-top:2px solid white; transform:translate(0, -5px); margin:0px;"
+          />
+          <a href="/" aria-label="Home Link" class="animated-link"
+            >Home</a
+          >
+        </div>
+        <div class="column">
+          <h4><b>Links</b></h4>
+          <hr
+            style="width: 60px; border-top:2px solid white; transform:translate(0, -5px); margin:0px;"
+          />
+          <a
+            href="https://github.com/WiiLink24"
+            aria-label="GitHub Link"
+            class="animated-link">GitHub</a
+          >
+          <a
+            href="https://github.com/orgs/WiiLink24/repositories"
+            aria-label="GitHub Repository Link"
+            class="animated-link">Repositories</a
+          >
+          <a
+            href="https://github.com/orgs/WiiLink24/projects"
+            aria-label="GitHub Projects Link"
+            class="animated-link">Projects</a
+          >
+          <a
+            href="https://github.com/orgs/WiiLink24/teams"
+            aria-label="GitHub Teams Link"
+            class="animated-link">Teams</a
+          >
+          <a
+            href="https://github.com/orgs/WiiLink24/people"
+            aria-label="GitHub People Link"
+            class="animated-link">People</a
+          >
+        </div>
+        <div class="column">
+          <h4><b>Socials</b></h4>
+          <hr
+            style="width: 60px; border-top:2px solid white; transform:translate(0, -5px); margin:0px;"
+          />
+          <a
+            href="https://discord.gg/wiilink"
+            aria-label="Discord Link"
+            data-bs-toggle="tooltip"
+            data-bs-placement="left"
+            data-bs-title="discord.gg/wiilink"
+            ><Icon
+              style="margin-right:10px; margin-bottom:5px;"
+              name="discord"
+            />Discord</a
+          >
+          <div class="dropdown">
+            <a
+              href="#"
+              aria-label="Language Dropdown"
+              class="dropdown-toggle"
+              data-bs-toggle="dropdown">
+              <Icon
+                style="margin-right:10px; margin-bottom:5px;"
+                name="simple-icons:twitter"
+              />Twitter
+            </a>
+            <a
+              class="dropdown-menu"
+              id="dropmenu-footer"
+              onmouseover="toggleflex('dropmenu-footer');"
+              style="background-color:var(--bg-color-tertiary); flex-direction:row; border-color: var(--border-color)">
+          </a>
+          </div>
+            <a
+              href="#"
+              aria-label="Language Dropdown"
+              class="dropdown-toggle"
+              data-bs-toggle="dropdown">
+              <Icon
+                style="margin-right:10px; margin-bottom:5px;"
+                name="simple-icons:bluesky"
+              />Bluesky
+            </a>
+          <a
+            href="https://github.com/WiiLink24"
+            aria-label="Github Link"
+            data-bs-toggle="tooltip"
+            data-bs-placement="left"
+            data-bs-title="WiiLink24"
+            ><Icon
+              style="margin-right:10px; margin-bottom:5px;"
+              name="github"
+            />GitHub</a
+          >
+          <a
+            href="https://www.instagram.com/_wiilink"
+            aria-label="Instagram Link"
+            data-bs-toggle="tooltip"
+            data-bs-placement="left"
+            data-bs-title="wiilink"
+            ><Icon
+              style="margin-right:10px; margin-bottom:5px;"
+              name="simple-icons:instagram"
+            />Instagram</a
+          >
+          <a
+            href="https://www.youtube.com/@wiilink"
+            aria-label="YouTube Link"
+            data-bs-toggle="tooltip"
+            data-bs-placement="left"
+            data-bs-title="WiiLink24"
+            ><Icon
+              style="margin-right:10px; margin-bottom:5px;"
+              name="simple-icons:youtube"
+            />YouTube</a
+          >
+        </div>
+        <div class="column">
+          <h4><b>Repositories</b></h4>
+          <hr
+            style="width: 60px; border-top:2px solid white; transform:translate(0, -5px); margin:0px;"
+          />
+          <a
+            href="https://github.com/WiiLink24/WiiLink24-Patcher"
+            aria-label="WiiLink Patcher Repository Link"
+            class="animated-link">WiiLink Patcher</a
+          >
+          <a
+            href="https://github.com/WiiLink24/wfc-server"
+            aria-label="WiiLink WFC Repository Link"
+            class="animated-link">WiiLink WFC</a
+          >
+          <a
+            href="https://github.com/WiiLink24/web"
+            aria-label="WiiLink Website Repository Link"
+            class="animated-link">Website</a
+          >
+          <a
+            href="https://github.com/WiiLink24/food-server"
+            aria-label="WiiLink Food Channel Repository Link"
+            class="animated-link">Food Channel</a
+          >
+          <a
+            href="https://github.com/WiiLink24/room-server"
+            aria-label="WiiLink Wii Room Repository Link"
+            class="animated-link">Wii Room</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <hr class="hr" style={display} />
+    <div class="footer-holder" style={display}>
+      <h4 class="slogan">
+          <b style="font-family:Rubik;">WiiLink</b>
+          Store is your one-stop shop for all things WiiLink merch! From clothing to CDs, get your fix on all things WiiLink, and support our work, by buying our merch!
+          <br />
+          <br />
+          © 2020-{new Date().getFullYear()}
+          <b style="font-family:Rubik;">WiiLink</b>
+          <b style="font-family:Gilroy;">Team</b>
+      </h4>
+    </div>
+
+    <div class="footer-holder legal" style={display}>
+      <a href="https://wiilink.ca/tos" aria-label="Terms of Service Link">
+        <Icon
+          name="lucide:arrow-right"
+          style="margin-right:5px; margin-bottom:5px;"
+        />Terms of Service</a
+      >
+      <a href="https://wiilink.ca/privacy-policy" aria-label="Privacy Policy Link"
+        ><Icon
+          name="lucide:arrow-right"
+          style="margin-right:5px; margin-bottom:5px;"
+        />
+        Privacy Policy</a
+      >
+      <a href="https://wiilink.ca/eula" aria-label="EULA Link"
+        ><Icon
+          name="lucide:arrow-right"
+          style="margin-right:5px; margin-bottom:5px;"
+        />
+        End-User License Agreement</a
+      >
+    </div>
+  </div>
+</div>
+<style>
+  h4,
+  p,
+  a {
+    color: white !important;
+  }
+  .copyright {
+    bottom: 0;
+    position: relative;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(
+      41deg,
+      rgba(0, 138, 255, 1) 0%,
+      rgba(255, 0, 59, 1) 100%
+    );
+    background-color: rgb(28, 28, 28);
+    top: 150px;
+    z-index: 5;
+    background-size: cover;
+  }
+
+  .columns {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: start;
+  }
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  a {
+    border-radius: 4px;
+    display:flex;
+    align-items:center;
+  }
+
+  .copyright::before {
+    content: "";
+    display: block;
+    height: var(--remove-border, 3px);
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 100%;
+  }
+  .dropdown-item:hover {
+    background-color: var(--bg-color-secondary) !important;
+  }
+
+  .footer-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: start;
+    flex-direction: row;
+    gap: 18px;
+    position: relative;
+  }
+  a,
+  p {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  .animated-link {
+    position: relative;
+    display: inline-block;
+    transition: 0.5s;
+  }
+
+  .animated-link::before {
+    content: "\f105";
+    font-family: "FontAwesome";
+    font-weight: 900;
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .animated-link:hover {
+    padding-left: 25px;
+    transition: 0.5s;
+  }
+  .animated-link:hover::before {
+    left: 0px;
+    opacity: 1;
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hr {
+    border-top: 2px solid white;
+    margin: 30px 0px;
+  }
+  .holder {
+    width: 98%;
+    max-width: 1200px;
+    padding: 30px;
+    margin: auto;
+  }
+  .legal {
+    margin-top: 30px;
+    opacity: 0.3;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    transition: 0.5s;
+  }
+  .legal:hover {
+    opacity: 1;
+    transition: 0.5s;
+  }
+  .slogan {
+    width: 100%;
+  }
+
+  @media (max-width: 1200px) {
+    .tables-holder {
+      width: 100% !important;
+    }
+    .legal {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+</style>

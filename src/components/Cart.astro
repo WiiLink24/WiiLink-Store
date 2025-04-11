@@ -1,0 +1,37 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div id="cart-popover" class="fixed bottom-0 left-0 md:top-24 md:right-5 md:bottom-auto md:left-auto w-full md:w-[350px] max-h-[500px] bg-white rounded-t-3xl md:rounded-3xl shadow-lg z-[200] overflow-hidden flex flex-col md:hidden">
+  <div class="p-4 flex justify-between items-center">
+    <p class="!m-0 text-2xl font-medium">Your Cart</p>
+    <button id="close-cart" aria-label="Close cart" class="bg-transparent border-none text-2xl cursor-pointer text-gray-600 hidden md:block">×</button>
+  </div>
+  
+  <div id="cart-items" class="p-3 overflow-y-auto flex-grow">
+    <!-- Cart items will be rendered here -->
+  </div>
+  
+  <div class="p-4">
+    <div class="flex justify-between mb-4">
+      <span>Total:</span>
+      <span id="cart-total-amount" class="text-2xl font-bold">$0.00</span>
+    </div>
+    <div class="mb-4 text-sm !text-gray-500">
+      <Icon name="lucide:info" class="inline-block align-text-bottom w-4 h-4 mr-1" />
+      Price in USD, shipping and taxes included, checkout will prompt you for details.
+    </div>
+    <button id="checkout-button" class="bg-[#10b44f] !text-white border-none p-2.5 rounded-2xl w-full cursor-pointer font-medium transition-colors duration-200 hover:bg-[#0a9040] disabled:bg-gray-300 disabled:cursor-not-allowed flex flex-row justify-center items-center gap-1" disabled>
+      Checkout with <img src="https://cdn.worldvectorlogo.com/logos/stripe-3.svg" alt="Stripe" class="inline-block h-5 invert brightness-0">
+    </button>
+  </div>
+</div>
+
+<button id="cart-toggle" class="hover:scale-105 active:scale-95 text-white w-[50px] h-[50px] cursor-pointer z-[100] hidden md:block relative transition-all">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+  </svg>
+  <span id="cart-count" class="absolute -top-[3px] right-[3px] bg-[#10b44f] text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">0</span>
+</button>

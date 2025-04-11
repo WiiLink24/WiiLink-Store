@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { contentfulClient } from "../lib/contentful";
+import type { storeProduct } from "../lib/contentful";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Hero from "../components/Hero.astro";
+import Product from "../components/Product.astro";
+
+const products = await contentfulClient.getEntries<storeProduct>({
+  content_type: "storeProduct",
+});
+---
+
+<Layout title="WiiLink Store" description="Welcome to the WiiLink Store!">
+  <Header />
+
+  <Hero />
+
+  <div
+    id="products"
+    class="mt-16 left-1/2 -translate-x-1/2 w-full max-w-[1550px] px-6 flex items-center justify-between relative"
+  >
+    <h2 class="text-4xl font-bold text-gray-800">All Products</h2>
+  </div>
+  <div
+    class="products-container left-1/2 -translate-x-1/2 w-full max-w-[1550px] px-6 relative"
+  >
+    {products.items.map((product) => <Product product={product} />)}
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+  }
+</style>
