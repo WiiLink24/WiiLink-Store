@@ -53,7 +53,7 @@ const recommendedProducts = products.items.filter(
 
 <Layout
   title={`${productName} - WiiLink Store`}
-  description={`Get your hands on the ${productName} at the WiiLink Store! \n \n \n $${priceUsd} · ${classificationChips.map((chip) => `#${chip}`).join(" ")} · ${sizes && sizes.length > 0 ? `Sizes: ${sizes.join(", ")}` : ""} \n \n \n ${description.split(" ").slice(0, 40).join(" ")}${description.split(" ").length > 40 ? "..." : ""}`}
+  description={`Get your hands on the ${productName} at the WiiLink Store! \n \n \n $${priceUsd} · ${classificationChips.map((chip) => `#${chip}`).join(" ")} ${sizes && sizes.length > 0 ? ` · Sizes: ${sizes.join(", ")}` : ""} \n \n ${description.split(" ").slice(0, 40).join(" ")}${description.split(" ").length > 40 ? "..." : ""}`}
   image={images[0].url}
 >
   <Header />
