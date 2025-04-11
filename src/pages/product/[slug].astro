@@ -64,11 +64,11 @@ const recommendedProducts = products.items.filter(
   <div
     class="!bg-white/0 mt-20 md:mt-40 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6 relative"
   >
-    <p class="text-lg opacity-60 flex-row items-center gap-3 hidden md:flex">
-      WiiLink Store <Icon name="lucide:chevron-right" /> Product <Icon
+    <p class="text-lg flex-row items-center gap-3 hidden md:flex">
+      <a href="/" class="opacity-60 hover:opacity-100 transition-all">WiiLink Store</a> <Icon name="lucide:chevron-right" /> <a href="/#products" class="opacity-60 hover:opacity-100 transition-all">Product</a> <Icon
         name="lucide:chevron-right"
       />
-      {productName}
+      <span class="opacity-60">{productName}</span>
     </p>
     <div class="product flex flex-col md:flex-row items-start gap-12">
       <span
@@ -121,7 +121,7 @@ const recommendedProducts = products.items.filter(
 
         {
           sizes && sizes.length > 0 && (
-            <div transition:name={`size-${id}`} class="size-selector">
+            <div transition:name={`size-${id}`} class="size-selector mb-3">
               <div class="size-options">
                 {sizes.map((size, index) => (
                   <label class="size-option">
